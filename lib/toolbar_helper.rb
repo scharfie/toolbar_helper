@@ -4,6 +4,16 @@ module ToolbarHelper
     @toolbar_collection ||= Slate::Collectible.new(:toolbar)
   end
   
+  def with_toolbar(key, &block)
+    toolbar_collection.keys.push(key)
+    yield
+    toolbar_collection.keys.pop
+  end
+  
+  def clear_toolbar!(key=nil)
+    toolbar_collection.items(key).clear
+  end
+  
   # Creates a new collectible item
   def toolbar_item(key=nil, content=nil, &block)
     toolbar_collection.push(key, content, &block)

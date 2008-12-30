@@ -30,7 +30,8 @@ module Slate
     def push(key=nil, content=nil, &block)
       content, key = key, self.key if content.nil?
       (content ||= '') << block.call if block_given?
-      (@items[key] ||= []) << content
+      @items[key] ||= []
+      @items[key] << content
     end
     
     # returns the items for the given key

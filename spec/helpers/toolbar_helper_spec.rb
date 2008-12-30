@@ -78,4 +78,19 @@ describe ToolbarHelper do
     result.should include('<li class="separator">|</li>')
     result.should include('<li>Edit</li>')
   end
+  
+  describe "using with_toolbar" do
+    it "should create new toolbar" do
+      helper.with_toolbar(:tools) do
+        helper.toolbar_item 'View'
+        helper.toolbar_collection.should have(1).items
+        
+        helper.toolbar_item 'Edit'
+        helper.toolbar_collection.should have(2).items
+      end
+      
+      helper.toolbar_collection.should have(0).items
+      helper.toolbar_collection.should have(2).items(:tools)
+    end
+  end
 end
