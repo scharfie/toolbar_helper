@@ -16,7 +16,11 @@ module ToolbarHelper
   
   # Creates a new collectible item
   def toolbar_item(key=nil, content=nil, &block)
-    toolbar_collection.push(key, content, &block)
+    # capture(&block) if block_given?
+    # (content ||= '') << capture(&block) if block_given?
+    with_output_buffer do
+      toolbar_collection.push(key, content, &block)
+    end  
   end
   
   # Creates a link_to with given arguments for current
